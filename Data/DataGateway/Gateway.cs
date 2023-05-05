@@ -1,0 +1,508 @@
+
+#region using statements
+
+using ApplicationLogicComponent.Controllers;
+using ApplicationLogicComponent.DataOperations;
+using DataAccessComponent.DataManager;
+using ObjectLibrary.BusinessObjects;
+using System;
+using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
+
+#endregion
+
+namespace DataGateway
+{
+
+    #region class Gateway
+    /// <summary>
+    /// This class is used to manage DataOperations
+    /// between the client and the DataAccessComponent.
+    /// Do not change the method name or the parameters for the
+    /// code generated methods or they will be recreated the next 
+    /// time you code generate with DataTier.Net. If you need additional
+    /// parameters passed to a method either create an override or
+    /// add or set properties to the temp object that is passed in.
+    /// </summary>
+    public class Gateway
+    {
+
+        #region Private Variables
+        private ApplicationController appController;
+        private string connectionName;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Create a new instance of a Gateway object.
+        /// </summary>
+        public Gateway(string connectionName = "")
+        {
+            // store the ConnectionName
+            this.ConnectionName = connectionName;
+
+            // Perform Initializations for this object
+            Init();
+        }
+        #endregion
+
+        #region Methods
+        
+            #region DeleteExcludeFolder(int id, ExcludeFolder tempExcludeFolder = null)
+            /// <summary>
+            /// This method is used to delete ExcludeFolder objects.
+            /// </summary>
+            /// <param name="id">Delete the ExcludeFolder with this id</param>
+            /// <param name="tempExcludeFolder">Pass in a tempExcludeFolder to perform a custom delete.</param>
+            public bool DeleteExcludeFolder(int id, ExcludeFolder tempExcludeFolder = null)
+            {
+                // initial value
+                bool deleted = false;
+        
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempExcludeFolder does not exist
+                    if (tempExcludeFolder == null)
+                    {
+                        // create a temp ExcludeFolder
+                        tempExcludeFolder = new ExcludeFolder();
+                    }
+        
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempExcludeFolder.UpdateIdentity(id);
+                    }
+        
+                    // perform the delete
+                    deleted = this.AppController.ControllerManager.ExcludeFolderController.Delete(tempExcludeFolder);
+                }
+        
+                // return value
+                return deleted;
+            }
+            #endregion
+        
+                #region DeleteExcludeFolderByProjectId(int projectId)
+                /// <summary>
+                /// This method is used to delete 'ExcludeFolder' objects for the ProjectId given.
+                /// </summary>
+                public bool DeleteExcludeFolderByProjectId(int projectId)
+                {
+                    // initial value
+                    bool deleted = false;
+                    
+                    // Create a temp ExcludeFolder object
+                    ExcludeFolder tempExcludeFolder = new ExcludeFolder();
+                    
+                    // Set the value for DeleteByProjectId to true
+                    tempExcludeFolder.DeleteByProjectId = true;
+                    
+                    // Set the value for ProjectId
+                    tempExcludeFolder.ProjectId = projectId;
+                    
+                    // Perform the delete
+                    deleted = DeleteExcludeFolder(0, tempExcludeFolder);
+                    
+                    // return value
+                    return deleted;
+                }
+                #endregion
+                
+            #region DeleteProject(int id, Project tempProject = null)
+            /// <summary>
+            /// This method is used to delete Project objects.
+            /// </summary>
+            /// <param name="id">Delete the Project with this id</param>
+            /// <param name="tempProject">Pass in a tempProject to perform a custom delete.</param>
+            public bool DeleteProject(int id, Project tempProject = null)
+            {
+                // initial value
+                bool deleted = false;
+        
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempProject does not exist
+                    if (tempProject == null)
+                    {
+                        // create a temp Project
+                        tempProject = new Project();
+                    }
+        
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempProject.UpdateIdentity(id);
+                    }
+        
+                    // perform the delete
+                    deleted = this.AppController.ControllerManager.ProjectController.Delete(tempProject);
+                }
+        
+                // return value
+                return deleted;
+            }
+            #endregion
+        
+            #region ExecuteNonQuery(string procedureName, SqlParameter[] sqlParameters)
+            /// <summary>
+            /// This method Executes a Non Query StoredProcedure
+            /// </summary>
+            public PolymorphicObject ExecuteNonQuery(string procedureName, SqlParameter[] sqlParameters)
+            {
+                // initial value
+                PolymorphicObject returnValue = new PolymorphicObject();
+
+                // locals
+                List<PolymorphicObject> parameters = new List<PolymorphicObject>();
+
+                // create the parameters
+                PolymorphicObject procedureNameParameter = new PolymorphicObject();
+                PolymorphicObject sqlParametersParameter = new PolymorphicObject();
+
+                // if the procedureName exists
+                if (!String.IsNullOrEmpty(procedureName))
+                {
+                    // Create an instance of the SystemMethods object
+                    SystemMethods systemMethods = new SystemMethods();
+
+                    // setup procedureNameParameter
+                    procedureNameParameter.Name = "ProcedureName";
+                    procedureNameParameter.Text = procedureName;
+
+                    // setup sqlParametersParameter
+                    sqlParametersParameter.Name = "SqlParameters";
+                    sqlParametersParameter.ObjectValue = sqlParameters;
+
+                    // Add these parameters to the parameters
+                    parameters.Add(procedureNameParameter);
+                    parameters.Add(sqlParametersParameter);
+
+                    // get the dataConnector
+                    DataAccessComponent.DataManager.DataConnector dataConnector = GetDataConnector();
+
+                    // Execute the query
+                    returnValue = systemMethods.ExecuteNonQuery(parameters, dataConnector);
+                }
+
+                // return value
+                return returnValue;
+            }
+            #endregion
+
+            #region FindExcludeFolder(int id, ExcludeFolder tempExcludeFolder = null)
+            /// <summary>
+            /// This method is used to find 'ExcludeFolder' objects.
+            /// </summary>
+            /// <param name="id">Find the ExcludeFolder with this id</param>
+            /// <param name="tempExcludeFolder">Pass in a tempExcludeFolder to perform a custom find.</param>
+            public ExcludeFolder FindExcludeFolder(int id, ExcludeFolder tempExcludeFolder = null)
+            {
+                // initial value
+                ExcludeFolder excludeFolder = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempExcludeFolder does not exist
+                    if (tempExcludeFolder == null)
+                    {
+                        // create a temp ExcludeFolder
+                        tempExcludeFolder = new ExcludeFolder();
+                    }
+
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempExcludeFolder.UpdateIdentity(id);
+                    }
+
+                    // perform the find
+                    excludeFolder = this.AppController.ControllerManager.ExcludeFolderController.Find(tempExcludeFolder);
+                }
+
+                // return value
+                return excludeFolder;
+            }
+            #endregion
+
+            #region FindProject(int id, Project tempProject = null)
+            /// <summary>
+            /// This method is used to find 'Project' objects.
+            /// </summary>
+            /// <param name="id">Find the Project with this id</param>
+            /// <param name="tempProject">Pass in a tempProject to perform a custom find.</param>
+            public Project FindProject(int id, Project tempProject = null)
+            {
+                // initial value
+                Project project = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempProject does not exist
+                    if (tempProject == null)
+                    {
+                        // create a temp Project
+                        tempProject = new Project();
+                    }
+
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempProject.UpdateIdentity(id);
+                    }
+
+                    // perform the find
+                    project = this.AppController.ControllerManager.ProjectController.Find(tempProject);
+                }
+
+                // return value
+                return project;
+            }
+            #endregion
+
+            #region GetDataConnector()
+            /// <summary>
+            /// This method (safely) returns the Data Connector from the
+            /// AppController.DataBridget.DataManager.DataConnector
+            /// </summary>
+            private DataConnector GetDataConnector()
+            {
+                // initial value
+                DataConnector dataConnector = null;
+
+                // if the AppController exists
+                if (this.AppController != null)
+                {
+                    // return the DataConnector from the AppController
+                    dataConnector = this.AppController.GetDataConnector();
+                }
+
+                // return value
+                return dataConnector;
+            }
+            #endregion
+
+            #region GetLastException()
+            /// <summary>
+            /// This method returns the last Exception from the AppController if one exists.
+            /// Always test for null before refeferencing the Exception returned as it will be null 
+            /// if no errors were encountered.
+            /// </summary>
+            /// <returns></returns>
+            public Exception GetLastException()
+            {
+                // initial value
+                Exception exception = null;
+
+                // If the AppController object exists
+                if (this.HasAppController)
+                {
+                    // return the Exception from the AppController
+                    exception = this.AppController.Exception;
+
+                    // Set to null after the exception is retrieved so it does not return again
+                    this.AppController.Exception = null;
+                }
+
+                // return value
+                return exception;
+            }
+            #endregion
+
+            #region Init()
+            /// <summary>
+            /// Perform Initializations for this object.
+            /// </summary>
+            private void Init()
+            {
+                // Create Application Controller
+                this.AppController = new ApplicationController(ConnectionName);
+            }
+            #endregion
+
+            #region LoadExcludeFolders(ExcludeFolder tempExcludeFolder = null)
+            /// <summary>
+            /// This method loads a collection of 'ExcludeFolder' objects.
+            /// </summary>
+            public List<ExcludeFolder> LoadExcludeFolders(ExcludeFolder tempExcludeFolder = null)
+            {
+                // initial value
+                List<ExcludeFolder> excludeFolders = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    excludeFolders = this.AppController.ControllerManager.ExcludeFolderController.FetchAll(tempExcludeFolder);
+                }
+
+                // return value
+                return excludeFolders;
+            }
+            #endregion
+
+                #region LoadExcludeFoldersForProjectId(int projectId)
+                /// <summary>
+                /// This method is used to load 'ExcludeFolder' objects for the ProjectId given.
+                /// </summary>
+                public List<ExcludeFolder> LoadExcludeFoldersForProjectId(int projectId)
+                {
+                    // initial value
+                    List<ExcludeFolder> excludeFolders = null;
+                    
+                    // Create a temp ExcludeFolder object
+                    ExcludeFolder tempExcludeFolder = new ExcludeFolder();
+                    
+                    // Set the value for LoadByProjectId to true
+                    tempExcludeFolder.LoadByProjectId = true;
+                    
+                    // Set the value for ProjectId
+                    tempExcludeFolder.ProjectId = projectId;
+                    
+                    // Perform the load
+                    excludeFolders = LoadExcludeFolders(tempExcludeFolder);
+                    
+                    // return value
+                    return excludeFolders;
+                }
+                #endregion
+                
+            #region LoadProjects(Project tempProject = null)
+            /// <summary>
+            /// This method loads a collection of 'Project' objects.
+            /// </summary>
+            public List<Project> LoadProjects(Project tempProject = null)
+            {
+                // initial value
+                List<Project> projects = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    projects = this.AppController.ControllerManager.ProjectController.FetchAll(tempProject);
+                }
+
+                // return value
+                return projects;
+            }
+            #endregion
+
+            #region SaveExcludeFolder(ref ExcludeFolder excludeFolder)
+            /// <summary>
+            /// This method is used to save 'ExcludeFolder' objects.
+            /// </summary>
+            /// <param name="excludeFolder">The ExcludeFolder to save.</param>
+            public bool SaveExcludeFolder(ref ExcludeFolder excludeFolder)
+            {
+                // initial value
+                bool saved = false;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the save
+                    saved = this.AppController.ControllerManager.ExcludeFolderController.Save(ref excludeFolder);
+                }
+
+                // return value
+                return saved;
+            }
+            #endregion
+
+            #region SaveProject(ref Project project)
+            /// <summary>
+            /// This method is used to save 'Project' objects.
+            /// </summary>
+            /// <param name="project">The Project to save.</param>
+            public bool SaveProject(ref Project project)
+            {
+                // initial value
+                bool saved = false;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the save
+                    saved = this.AppController.ControllerManager.ProjectController.Save(ref project);
+                }
+
+                // return value
+                return saved;
+            }
+            #endregion
+
+        #endregion
+
+        #region Properties
+
+            #region AppController
+            /// <summary>
+            /// This property gets or sets the value for 'AppController'.
+            /// </summary>
+            public ApplicationController AppController
+            {
+                get { return appController; }
+                set { appController = value; }
+            }
+            #endregion
+
+            #region ConnectionName
+            /// <summary>
+            /// This property gets or sets the value for 'ConnectionName'.
+            /// </summary>
+            public string ConnectionName
+            {
+                get { return connectionName; }
+                set { connectionName = value; }
+            }
+            #endregion
+            
+            #region HasAppController
+            /// <summary>
+            /// This property returns true if this object has an 'AppController'.
+            /// </summary>
+            public bool HasAppController
+            {
+                get
+                {
+                    // initial value
+                    bool hasAppController = (this.AppController != null);
+
+                    // return value
+                    return hasAppController;
+                }
+            }
+            #endregion
+
+            #region HasConnectionName
+            /// <summary>
+            /// This property returns true if the 'ConnectionName' exists.
+            /// </summary>
+            public bool HasConnectionName
+            {
+                get
+                {
+                    // initial value
+                    bool hasConnectionName = (!String.IsNullOrEmpty(this.ConnectionName));
+                    
+                    // return value
+                    return hasConnectionName;
+                }
+            }
+            #endregion
+            
+        #endregion
+
+    }
+    #endregion
+
+}
