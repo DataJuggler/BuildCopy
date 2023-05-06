@@ -17,24 +17,12 @@ namespace BuildCopy
 
         #region Private Variables
         private System.ComponentModel.IContainer components = null;
-        private DataJuggler.Win.Controls.Objects.PanelExtender DetailsPanel;
-        private DataJuggler.Win.Controls.Button CancelSaveButton;
-        private DataJuggler.Win.Controls.Button SaveButton;
-        private DataJuggler.Win.Controls.LabelTextBoxControl NameControl;
         private DataJuggler.Win.Controls.Button DeleteButton;
         private DataJuggler.Win.Controls.Button EditButton;
         private DataJuggler.Win.Controls.Button AddButton;
         private ListBox ProjectsListBox;
         private Label ListLabel;
         private Label TitleLabel;
-        private DataJuggler.Win.Controls.LabelTextBoxBrowserControl OutputFolderControl;
-        private DataJuggler.Win.Controls.LabelTextBoxBrowserControl PathControl;
-        private DataJuggler.Win.Controls.Button CopyButton;
-        private DataJuggler.Win.Controls.LabelTextBoxBrowserControl ExcludeFolderControl;
-        private DataJuggler.Win.Controls.Button DeleteExcludedFolderButton;
-        private DataJuggler.Win.Controls.Button AddExcludedFolderButton;
-        private Label ExcludedFoldersLabel;
-        private ListBox ExcludedFoldersListBox;
         #endregion
 
         #region Methods
@@ -62,6 +50,12 @@ namespace BuildCopy
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            DeleteButton = new DataJuggler.Win.Controls.Button();
+            EditButton = new DataJuggler.Win.Controls.Button();
+            AddButton = new DataJuggler.Win.Controls.Button();
+            ProjectsListBox = new ListBox();
+            ListLabel = new Label();
+            TitleLabel = new Label();
             DetailsPanel = new DataJuggler.Win.Controls.Objects.PanelExtender();
             StatusLabel = new Label();
             Graph = new ProgressBar();
@@ -76,14 +70,87 @@ namespace BuildCopy
             CancelSaveButton = new DataJuggler.Win.Controls.Button();
             SaveButton = new DataJuggler.Win.Controls.Button();
             NameControl = new DataJuggler.Win.Controls.LabelTextBoxControl();
-            DeleteButton = new DataJuggler.Win.Controls.Button();
-            EditButton = new DataJuggler.Win.Controls.Button();
-            AddButton = new DataJuggler.Win.Controls.Button();
-            ProjectsListBox = new ListBox();
-            ListLabel = new Label();
-            TitleLabel = new Label();
             DetailsPanel.SuspendLayout();
             SuspendLayout();
+            // 
+            // DeleteButton
+            // 
+            DeleteButton.BackColor = Color.Transparent;
+            DeleteButton.ButtonText = "Delete";
+            DeleteButton.FlatStyle = FlatStyle.Flat;
+            DeleteButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            DeleteButton.ForeColor = Color.LemonChiffon;
+            DeleteButton.Location = new Point(250, 582);
+            DeleteButton.Margin = new Padding(4);
+            DeleteButton.Name = "DeleteButton";
+            DeleteButton.Size = new Size(107, 44);
+            DeleteButton.TabIndex = 12;
+            DeleteButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            DeleteButton.Click += DeleteButton_Click;
+            // 
+            // EditButton
+            // 
+            EditButton.BackColor = Color.Transparent;
+            EditButton.ButtonText = "Edit";
+            EditButton.FlatStyle = FlatStyle.Flat;
+            EditButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            EditButton.ForeColor = Color.LemonChiffon;
+            EditButton.Location = new Point(132, 583);
+            EditButton.Margin = new Padding(5, 4, 5, 4);
+            EditButton.Name = "EditButton";
+            EditButton.Size = new Size(107, 44);
+            EditButton.TabIndex = 11;
+            EditButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            EditButton.Click += EditButton_Click;
+            // 
+            // AddButton
+            // 
+            AddButton.BackColor = Color.Transparent;
+            AddButton.ButtonText = "Add";
+            AddButton.FlatStyle = FlatStyle.Flat;
+            AddButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            AddButton.ForeColor = Color.LemonChiffon;
+            AddButton.Location = new Point(14, 582);
+            AddButton.Margin = new Padding(5, 4, 5, 4);
+            AddButton.Name = "AddButton";
+            AddButton.Size = new Size(107, 44);
+            AddButton.TabIndex = 10;
+            AddButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
+            AddButton.Click += AddButton_Click;
+            // 
+            // ProjectsListBox
+            // 
+            ProjectsListBox.FormattingEnabled = true;
+            ProjectsListBox.ItemHeight = 15;
+            ProjectsListBox.Location = new Point(12, 41);
+            ProjectsListBox.Name = "ProjectsListBox";
+            ProjectsListBox.Size = new Size(346, 529);
+            ProjectsListBox.TabIndex = 9;
+            ProjectsListBox.SelectedIndexChanged += ProjectsListBox_SelectedIndexChanged;
+            // 
+            // ListLabel
+            // 
+            ListLabel.AutoSize = true;
+            ListLabel.BackColor = Color.Transparent;
+            ListLabel.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ListLabel.ForeColor = Color.LemonChiffon;
+            ListLabel.Location = new Point(15, -30);
+            ListLabel.Name = "ListLabel";
+            ListLabel.Size = new Size(58, 18);
+            ListLabel.TabIndex = 8;
+            ListLabel.Text = "Ideas";
+            // 
+            // TitleLabel
+            // 
+            TitleLabel.AutoSize = true;
+            TitleLabel.BackColor = Color.Transparent;
+            TitleLabel.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            TitleLabel.ForeColor = Color.LemonChiffon;
+            TitleLabel.Location = new Point(12, 18);
+            TitleLabel.Name = "TitleLabel";
+            TitleLabel.Size = new Size(81, 18);
+            TitleLabel.TabIndex = 14;
+            TitleLabel.Text = "Projects";
             // 
             // DetailsPanel
             // 
@@ -102,10 +169,11 @@ namespace BuildCopy
             DetailsPanel.Controls.Add(SaveButton);
             DetailsPanel.Controls.Add(NameControl);
             DetailsPanel.Dock = DockStyle.Right;
-            DetailsPanel.Location = new Point(516, 0);
+            DetailsPanel.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            DetailsPanel.Location = new Point(377, 0);
             DetailsPanel.Name = "DetailsPanel";
-            DetailsPanel.Size = new Size(675, 648);
-            DetailsPanel.TabIndex = 13;
+            DetailsPanel.Size = new Size(665, 648);
+            DetailsPanel.TabIndex = 15;
             DetailsPanel.Visible = false;
             // 
             // StatusLabel
@@ -132,9 +200,10 @@ namespace BuildCopy
             CopyButton.ButtonText = "Copy";
             CopyButton.FlatStyle = FlatStyle.Flat;
             CopyButton.ForeColor = Color.LemonChiffon;
-            CopyButton.Location = new Point(29, 583);
+            CopyButton.Location = new Point(41, 700);
+            CopyButton.Margin = new Padding(4);
             CopyButton.Name = "CopyButton";
-            CopyButton.Size = new Size(97, 44);
+            CopyButton.Size = new Size(139, 53);
             CopyButton.TabIndex = 21;
             CopyButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             CopyButton.Click += CopyButton_Click;
@@ -181,10 +250,12 @@ namespace BuildCopy
             DeleteExcludedFolderButton.BackColor = Color.Transparent;
             DeleteExcludedFolderButton.ButtonText = "Delete";
             DeleteExcludedFolderButton.FlatStyle = FlatStyle.Flat;
+            DeleteExcludedFolderButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
             DeleteExcludedFolderButton.ForeColor = Color.LemonChiffon;
-            DeleteExcludedFolderButton.Location = new Point(369, 387);
+            DeleteExcludedFolderButton.Location = new Point(366, 386);
+            DeleteExcludedFolderButton.Margin = new Padding(4);
             DeleteExcludedFolderButton.Name = "DeleteExcludedFolderButton";
-            DeleteExcludedFolderButton.Size = new Size(97, 44);
+            DeleteExcludedFolderButton.Size = new Size(107, 44);
             DeleteExcludedFolderButton.TabIndex = 19;
             DeleteExcludedFolderButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             DeleteExcludedFolderButton.Click += DeleteExcludedFolderButton_Click;
@@ -194,10 +265,12 @@ namespace BuildCopy
             AddExcludedFolderButton.BackColor = Color.Transparent;
             AddExcludedFolderButton.ButtonText = "Add";
             AddExcludedFolderButton.FlatStyle = FlatStyle.Flat;
+            AddExcludedFolderButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
             AddExcludedFolderButton.ForeColor = Color.LemonChiffon;
-            AddExcludedFolderButton.Location = new Point(241, 387);
+            AddExcludedFolderButton.Location = new Point(237, 386);
+            AddExcludedFolderButton.Margin = new Padding(4);
             AddExcludedFolderButton.Name = "AddExcludedFolderButton";
-            AddExcludedFolderButton.Size = new Size(97, 44);
+            AddExcludedFolderButton.Size = new Size(107, 44);
             AddExcludedFolderButton.TabIndex = 17;
             AddExcludedFolderButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             AddExcludedFolderButton.Click += AddExcludedFolderButton_Click;
@@ -217,12 +290,11 @@ namespace BuildCopy
             // ExcludedFoldersListBox
             // 
             ExcludedFoldersListBox.FormattingEnabled = true;
-            ExcludedFoldersListBox.ItemHeight = 15;
+            ExcludedFoldersListBox.ItemHeight = 18;
             ExcludedFoldersListBox.Location = new Point(67, 218);
             ExcludedFoldersListBox.Name = "ExcludedFoldersListBox";
-            ExcludedFoldersListBox.Size = new Size(573, 154);
+            ExcludedFoldersListBox.Size = new Size(573, 148);
             ExcludedFoldersListBox.TabIndex = 15;
-            ExcludedFoldersListBox.SelectedIndexChanged += ExcludedFoldersListBox_SelectedIndexChanged;
             // 
             // OutputFolderControl
             // 
@@ -301,10 +373,12 @@ namespace BuildCopy
             CancelSaveButton.BackColor = Color.Transparent;
             CancelSaveButton.ButtonText = "Cancel";
             CancelSaveButton.FlatStyle = FlatStyle.Flat;
+            CancelSaveButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
             CancelSaveButton.ForeColor = Color.LemonChiffon;
-            CancelSaveButton.Location = new Point(554, 583);
+            CancelSaveButton.Location = new Point(533, 591);
+            CancelSaveButton.Margin = new Padding(4);
             CancelSaveButton.Name = "CancelSaveButton";
-            CancelSaveButton.Size = new Size(97, 44);
+            CancelSaveButton.Size = new Size(107, 44);
             CancelSaveButton.TabIndex = 10;
             CancelSaveButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             CancelSaveButton.Click += CancelSaveButton_Click;
@@ -314,10 +388,12 @@ namespace BuildCopy
             SaveButton.BackColor = Color.Transparent;
             SaveButton.ButtonText = "Save";
             SaveButton.FlatStyle = FlatStyle.Flat;
+            SaveButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
             SaveButton.ForeColor = Color.LemonChiffon;
-            SaveButton.Location = new Point(443, 583);
+            SaveButton.Location = new Point(410, 591);
+            SaveButton.Margin = new Padding(4);
             SaveButton.Name = "SaveButton";
-            SaveButton.Size = new Size(97, 44);
+            SaveButton.Size = new Size(107, 44);
             SaveButton.TabIndex = 9;
             SaveButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             SaveButton.Click += SaveButton_Click;
@@ -351,87 +427,14 @@ namespace BuildCopy
             NameControl.TextBoxTopMargin = 0;
             NameControl.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             // 
-            // DeleteButton
-            // 
-            DeleteButton.BackColor = Color.Transparent;
-            DeleteButton.ButtonText = "Delete";
-            DeleteButton.FlatStyle = FlatStyle.Flat;
-            DeleteButton.ForeColor = Color.LemonChiffon;
-            DeleteButton.Location = new Point(317, 583);
-            DeleteButton.Name = "DeleteButton";
-            DeleteButton.Size = new Size(97, 44);
-            DeleteButton.TabIndex = 12;
-            DeleteButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
-            DeleteButton.Click += DeleteButton_Click;
-            // 
-            // EditButton
-            // 
-            EditButton.BackColor = Color.Transparent;
-            EditButton.ButtonText = "Edit";
-            EditButton.FlatStyle = FlatStyle.Flat;
-            EditButton.ForeColor = Color.LemonChiffon;
-            EditButton.Location = new Point(202, 583);
-            EditButton.Name = "EditButton";
-            EditButton.Size = new Size(97, 44);
-            EditButton.TabIndex = 11;
-            EditButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
-            EditButton.Click += EditButton_Click;
-            // 
-            // AddButton
-            // 
-            AddButton.BackColor = Color.Transparent;
-            AddButton.ButtonText = "Add";
-            AddButton.FlatStyle = FlatStyle.Flat;
-            AddButton.ForeColor = Color.LemonChiffon;
-            AddButton.Location = new Point(87, 583);
-            AddButton.Name = "AddButton";
-            AddButton.Size = new Size(97, 44);
-            AddButton.TabIndex = 10;
-            AddButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
-            AddButton.Click += AddButton_Click;
-            // 
-            // ProjectsListBox
-            // 
-            ProjectsListBox.FormattingEnabled = true;
-            ProjectsListBox.ItemHeight = 15;
-            ProjectsListBox.Location = new Point(12, 41);
-            ProjectsListBox.Name = "ProjectsListBox";
-            ProjectsListBox.Size = new Size(477, 529);
-            ProjectsListBox.TabIndex = 9;
-            ProjectsListBox.SelectedIndexChanged += ProjectsListBox_SelectedIndexChanged;
-            // 
-            // ListLabel
-            // 
-            ListLabel.AutoSize = true;
-            ListLabel.BackColor = Color.Transparent;
-            ListLabel.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            ListLabel.ForeColor = Color.LemonChiffon;
-            ListLabel.Location = new Point(15, -30);
-            ListLabel.Name = "ListLabel";
-            ListLabel.Size = new Size(58, 18);
-            ListLabel.TabIndex = 8;
-            ListLabel.Text = "Ideas";
-            // 
-            // TitleLabel
-            // 
-            TitleLabel.AutoSize = true;
-            TitleLabel.BackColor = Color.Transparent;
-            TitleLabel.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            TitleLabel.ForeColor = Color.LemonChiffon;
-            TitleLabel.Location = new Point(12, 18);
-            TitleLabel.Name = "TitleLabel";
-            TitleLabel.Size = new Size(81, 18);
-            TitleLabel.TabIndex = 14;
-            TitleLabel.Text = "Projects";
-            // 
             // MainForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.BlackImage;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1191, 648);
-            Controls.Add(TitleLabel);
+            ClientSize = new Size(1042, 648);
             Controls.Add(DetailsPanel);
+            Controls.Add(TitleLabel);
             Controls.Add(DeleteButton);
             Controls.Add(EditButton);
             Controls.Add(AddButton);
@@ -440,18 +443,31 @@ namespace BuildCopy
             DoubleBuffered = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Build Copy";
             DetailsPanel.ResumeLayout(false);
             DetailsPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
-        #endregion
 
         #endregion
+        #endregion
 
-        private ProgressBar Graph;
+        private DataJuggler.Win.Controls.Objects.PanelExtender DetailsPanel;
         private Label StatusLabel;
+        private ProgressBar Graph;
+        private DataJuggler.Win.Controls.Button CopyButton;
+        private DataJuggler.Win.Controls.LabelTextBoxBrowserControl ExcludeFolderControl;
+        private DataJuggler.Win.Controls.Button DeleteExcludedFolderButton;
+        private DataJuggler.Win.Controls.Button AddExcludedFolderButton;
+        private Label ExcludedFoldersLabel;
+        private ListBox ExcludedFoldersListBox;
+        private DataJuggler.Win.Controls.LabelTextBoxBrowserControl OutputFolderControl;
+        private DataJuggler.Win.Controls.LabelTextBoxBrowserControl PathControl;
+        private DataJuggler.Win.Controls.Button CancelSaveButton;
+        private DataJuggler.Win.Controls.Button SaveButton;
+        private DataJuggler.Win.Controls.LabelTextBoxControl NameControl;
     }
     #endregion
 
