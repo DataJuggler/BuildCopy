@@ -199,11 +199,12 @@ namespace BuildCopy
             CopyButton.BackColor = Color.Transparent;
             CopyButton.ButtonText = "Copy";
             CopyButton.FlatStyle = FlatStyle.Flat;
+            CopyButton.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point);
             CopyButton.ForeColor = Color.LemonChiffon;
-            CopyButton.Location = new Point(41, 700);
-            CopyButton.Margin = new Padding(4);
+            CopyButton.Location = new Point(28, 582);
+            CopyButton.Margin = new Padding(6, 5, 6, 5);
             CopyButton.Name = "CopyButton";
-            CopyButton.Size = new Size(139, 53);
+            CopyButton.Size = new Size(107, 44);
             CopyButton.TabIndex = 21;
             CopyButton.Theme = DataJuggler.Win.Controls.Enumerations.ThemeEnum.Dark;
             CopyButton.Click += CopyButton_Click;
@@ -444,7 +445,7 @@ namespace BuildCopy
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Build Copy";
+            Text = "Build Copy 1.0.0";
             DetailsPanel.ResumeLayout(false);
             DetailsPanel.PerformLayout();
             ResumeLayout(false);
