@@ -15,4 +15,16 @@ There is also a release version of DataTier.Net, that installs ConnectionStringB
 This project is used when I create Nuget packagtes for Blazor projects, so I can copy all the code I want to
 the templates directory.
 
-Video coming soon.
+BuildCopy will copy the files from a Visual Studio project (folder) to an output folder. In this case, the output folder is ProjectTemplates\Working\Templates. BuildCopy also allows you to set ignore folders, so I do not copy the .vs, .git, .bin, .obj, .templateconfig and a few others.
+
+Here is a video showing you how to setup this project, build the data tier for Blazor Gallery, and build your own DataTier.Net projects.
+
+How To Create A Nuget Package For A Blazor Site
+https://youtu.be/K5WbNKUPDGs
+
+# Want To Help Contribute to this project?
+Volunteer to take the instructions from the video and write them out as step by step. Bonus with images and screen shots.
+
+If you think this project is worth the price, please leave a star and / or subscribe to my YouTube channel: https://youtube.com/DataJuggler
+
+Thanks
