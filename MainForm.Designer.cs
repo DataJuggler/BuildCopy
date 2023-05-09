@@ -120,11 +120,12 @@ namespace BuildCopy
             // 
             // ProjectsListBox
             // 
+            ProjectsListBox.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
             ProjectsListBox.FormattingEnabled = true;
-            ProjectsListBox.ItemHeight = 15;
+            ProjectsListBox.ItemHeight = 18;
             ProjectsListBox.Location = new Point(12, 41);
             ProjectsListBox.Name = "ProjectsListBox";
-            ProjectsListBox.Size = new Size(346, 529);
+            ProjectsListBox.Size = new Size(346, 526);
             ProjectsListBox.TabIndex = 9;
             ProjectsListBox.SelectedIndexChanged += ProjectsListBox_SelectedIndexChanged;
             // 
