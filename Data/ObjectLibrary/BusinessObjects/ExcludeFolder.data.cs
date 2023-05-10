@@ -20,6 +20,7 @@ namespace ObjectLibrary.BusinessObjects
         private int id;
         private string name;
         private int projectId;
+        private bool skipContent;
         #endregion
 
         #region Methods
@@ -88,6 +89,20 @@ namespace ObjectLibrary.BusinessObjects
                 set
                 {
                     projectId = value;
+                }
+            }
+            #endregion
+
+            #region bool SkipContent
+            public bool SkipContent
+            {
+                get
+                {
+                    return skipContent;
+                }
+                set
+                {
+                    skipContent = value;
                 }
             }
             #endregion

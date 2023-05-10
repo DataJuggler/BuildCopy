@@ -352,6 +352,7 @@ namespace BuildCopy
         {
             // local
             bool skip = false;
+            bool skipContent = false;
 
             // if SelectedProject exists
             if (HasSelectedProject)
@@ -375,7 +376,7 @@ namespace BuildCopy
                         // iterate
                         foreach (ExcludeFolder folder in SelectedProject.ExcludeFolders)
                         {
-                            if (dirPath.Contains(folder.FullPath))
+                            if ((dirPath.Contains(folder.FullPath)) && (!folder.SkipContent))
                             {
                                 // set to true
                                 skip = true;
@@ -653,6 +654,33 @@ namespace BuildCopy
             EditButton.Enabled = HasSelectedProject;
             DeleteButton.Enabled = HasSelectedProject;
             DeleteExcludedFolderButton.Enabled = HasSelectedExcludedFolder;
+        }
+
+        private void ExcludedFoldersListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            // if the value for HasSelectedExcludedFolder is true
+            if (HasSelectedExcludedFolder)
+            {
+                // if the S key was toggled
+                if (e.KeyCode == Keys.S)
+                {
+                    // Toggle
+                    SelectedExcludedFolder.SkipContent = !SelectedExcludedFolder.SkipContent;
+
+                    // Perform the save
+                    bool saved = Gateway.SaveExcludeFolder(ref selectedExcludedFolder);
+
+                    // if the value for saved is true
+                    if (saved)
+                    {
+                        // Reload
+                        SelectedProject.ExcludeFolders = Gateway.LoadExcludeFoldersForProjectId(SelectedProject.Id);
+
+                        // Reselect this item
+                        DisplayExcludeFolders(SelectedExcludedFolder);
+                    }
+                }
+            }
         }
         #endregion
 

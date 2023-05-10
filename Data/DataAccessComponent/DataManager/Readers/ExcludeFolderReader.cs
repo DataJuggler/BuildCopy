@@ -40,6 +40,7 @@ namespace DataAccessComponent.DataManager.Readers
                 int idfield = 1;
                 int namefield = 2;
                 int projectIdfield = 3;
+                int skipContentfield = 4;
 
                 try
                 {
@@ -48,6 +49,7 @@ namespace DataAccessComponent.DataManager.Readers
                     excludeFolder.UpdateIdentity(DataHelper.ParseInteger(dataRow.ItemArray[idfield], 0));
                     excludeFolder.Name = DataHelper.ParseString(dataRow.ItemArray[namefield]);
                     excludeFolder.ProjectId = DataHelper.ParseInteger(dataRow.ItemArray[projectIdfield], 0);
+                    excludeFolder.SkipContent = DataHelper.ParseBoolean(dataRow.ItemArray[skipContentfield], false);
                 }
                 catch
                 {

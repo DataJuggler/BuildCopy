@@ -84,7 +84,7 @@ namespace DataGateway
                 return deleted;
             }
             #endregion
-        
+                
                 #region DeleteExcludeFolderByProjectId(int projectId)
                 /// <summary>
                 /// This method is used to delete 'ExcludeFolder' objects for the ProjectId given.
@@ -348,7 +348,7 @@ namespace DataGateway
                 return excludeFolders;
             }
             #endregion
-
+                    
                 #region LoadExcludeFoldersForProjectId(int projectId)
                 /// <summary>
                 /// This method is used to load 'ExcludeFolder' objects for the ProjectId given.
@@ -506,3 +506,4 @@ namespace DataGateway
     #endregion
 
 }
+

@@ -57,6 +57,7 @@ namespace BuildCopy
             ListLabel = new Label();
             TitleLabel = new Label();
             DetailsPanel = new DataJuggler.Win.Controls.Objects.PanelExtender();
+            InfoLabel = new Label();
             StatusLabel = new Label();
             Graph = new ProgressBar();
             CopyButton = new DataJuggler.Win.Controls.Button();
@@ -156,6 +157,7 @@ namespace BuildCopy
             // DetailsPanel
             // 
             DetailsPanel.BackColor = Color.Transparent;
+            DetailsPanel.Controls.Add(InfoLabel);
             DetailsPanel.Controls.Add(StatusLabel);
             DetailsPanel.Controls.Add(Graph);
             DetailsPanel.Controls.Add(CopyButton);
@@ -176,6 +178,17 @@ namespace BuildCopy
             DetailsPanel.Size = new Size(665, 648);
             DetailsPanel.TabIndex = 15;
             DetailsPanel.Visible = false;
+            // 
+            // InfoLabel
+            // 
+            InfoLabel.Font = new Font("Verdana", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            InfoLabel.ForeColor = Color.LemonChiffon;
+            InfoLabel.Location = new Point(262, 192);
+            InfoLabel.Name = "InfoLabel";
+            InfoLabel.Size = new Size(373, 21);
+            InfoLabel.TabIndex = 24;
+            InfoLabel.Text = "Select a folder and press S to skip content.";
+            InfoLabel.TextAlign = ContentAlignment.MiddleRight;
             // 
             // StatusLabel
             // 
@@ -297,6 +310,8 @@ namespace BuildCopy
             ExcludedFoldersListBox.Name = "ExcludedFoldersListBox";
             ExcludedFoldersListBox.Size = new Size(573, 148);
             ExcludedFoldersListBox.TabIndex = 15;
+            ExcludedFoldersListBox.SelectedIndexChanged += ExcludedFoldersListBox_SelectedIndexChanged;
+            ExcludedFoldersListBox.KeyDown += ExcludedFoldersListBox_KeyDown;
             // 
             // OutputFolderControl
             // 
@@ -470,6 +485,7 @@ namespace BuildCopy
         private DataJuggler.Win.Controls.Button CancelSaveButton;
         private DataJuggler.Win.Controls.Button SaveButton;
         private DataJuggler.Win.Controls.LabelTextBoxControl NameControl;
+        private Label InfoLabel;
     }
     #endregion
 

@@ -6,7 +6,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Insert a new ExcludeFolder
 -- =========================================================
 
@@ -39,7 +39,8 @@ Create PROCEDURE ExcludeFolder_Insert
     -- Add the parameters for the stored procedure here
     @FullPath nvarchar(255),
     @Name nvarchar(50),
-    @ProjectId int
+    @ProjectId int,
+    @SkipContent bit
 
 AS
 BEGIN
@@ -50,10 +51,10 @@ BEGIN
 
     -- Begin Insert Statement
     Insert Into [ExcludeFolder]
-    ([FullPath],[Name],[ProjectId])
+    ([FullPath],[Name],[ProjectId],[SkipContent])
 
     -- Begin Values List
-    Values(@FullPath, @Name, @ProjectId)
+    Values(@FullPath, @Name, @ProjectId, @SkipContent)
 
     -- Return ID of new record
     SELECT SCOPE_IDENTITY()
@@ -66,7 +67,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Update an existing ExcludeFolder
 -- =========================================================
 
@@ -100,7 +101,8 @@ Create PROCEDURE ExcludeFolder_Update
     @FullPath nvarchar(255),
     @Id int,
     @Name nvarchar(50),
-    @ProjectId int
+    @ProjectId int,
+    @SkipContent bit
 
 AS
 BEGIN
@@ -115,7 +117,8 @@ BEGIN
     -- Update Each field
     Set [FullPath] = @FullPath,
     [Name] = @Name,
-    [ProjectId] = @ProjectId
+    [ProjectId] = @ProjectId,
+    [SkipContent] = @SkipContent
 
     -- Update Matching Record
     Where [Id] = @Id
@@ -128,7 +131,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Find an existing ExcludeFolder
 -- =========================================================
 
@@ -169,7 +172,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [FullPath],[Id],[Name],[ProjectId]
+    Select [FullPath],[Id],[Name],[ProjectId],[SkipContent]
 
     -- From tableName
     From [ExcludeFolder]
@@ -185,7 +188,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Delete an existing ExcludeFolder
 -- =========================================================
 
@@ -239,7 +242,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Returns all ExcludeFolder objects
 -- =========================================================
 
@@ -277,7 +280,7 @@ BEGIN
     SET NOCOUNT ON
 
     -- Begin Select Statement
-    Select [FullPath],[Id],[Name],[ProjectId]
+    Select [FullPath],[Id],[Name],[ProjectId],[SkipContent]
 
     -- From tableName
     From [ExcludeFolder]
@@ -290,7 +293,7 @@ Go
 -- =========================================================
 -- Procure Name: Project_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Insert a new Project
 -- =========================================================
 
@@ -350,7 +353,7 @@ Go
 -- =========================================================
 -- Procure Name: Project_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Update an existing Project
 -- =========================================================
 
@@ -412,7 +415,7 @@ Go
 -- =========================================================
 -- Procure Name: Project_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Find an existing Project
 -- =========================================================
 
@@ -469,7 +472,7 @@ Go
 -- =========================================================
 -- Procure Name: Project_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Delete an existing Project
 -- =========================================================
 
@@ -523,7 +526,7 @@ Go
 -- =========================================================
 -- Procure Name: Project_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/5/2023
+-- Create Date:   5/10/2023
 -- Description:    Returns all Project objects
 -- =========================================================
 
@@ -567,6 +570,70 @@ BEGIN
     From [Project]
 
 END
+
+-- Begin Custom Methods
+
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: ExcludeFolder_FetchAllForProjectId
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   5/10/2023
+-- Description:    Returns all ExcludeFolder objects for the ProjectId given.
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('ExcludeFolder_FetchAllForProjectId'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure ExcludeFolder_FetchAllForProjectId
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.ExcludeFolder_FetchAllForProjectId') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure ExcludeFolder_FetchAllForProjectId >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure ExcludeFolder_FetchAllForProjectId >>>'
+
+    End
+
+GO
+
+Create PROCEDURE ExcludeFolder_FetchAllForProjectId
+
+    -- Create @ProjectId Paramater
+    @ProjectId int
+
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [FullPath],[Id],[Name],[ProjectId],[SkipContent]
+
+    -- From tableName
+    From [ExcludeFolder]
+
+    -- Load Matching Records
+    Where [ProjectId] = @ProjectId
+
+END
+
+
+-- End Custom Methods
 
 -- Thank you for using DataTier.Net.
 

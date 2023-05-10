@@ -45,8 +45,18 @@ namespace ObjectLibrary.BusinessObjects
             /// </summary>
             public override string ToString()
             {
+                // initial value
+                string name = Name;
+
+                // if SkipContent is true
+                if (SkipContent)
+                {
+                    // set the return value
+                    name = name + " - Content Skipped";
+                }
+
                 // return value
-                return Name;
+                return name;
             }
             #endregion
 
