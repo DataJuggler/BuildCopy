@@ -352,7 +352,6 @@ namespace BuildCopy
         {
             // local
             bool skip = false;
-            bool skipContent = false;
 
             // if SelectedProject exists
             if (HasSelectedProject)
