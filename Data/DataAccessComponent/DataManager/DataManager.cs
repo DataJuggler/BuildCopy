@@ -29,6 +29,7 @@ namespace DataAccessComponent.DataManager
         private DataConnector dataConnector;
         private string connectionName;
         private ExcludeFolderManager excludefolderManager;
+        private PostActionManager postactionManager;
         private ProjectManager projectManager;
         #endregion
 
@@ -60,6 +61,7 @@ namespace DataAccessComponent.DataManager
 
                 // Create Child Object Managers
                 this.ExcludeFolderManager = new ExcludeFolderManager(this);
+                this.PostActionManager = new PostActionManager(this);
                 this.ProjectManager = new ProjectManager(this);
             }
             #endregion
@@ -89,6 +91,14 @@ namespace DataAccessComponent.DataManager
             {
                 get { return excludefolderManager; }
                 set { excludefolderManager = value; }
+            }
+            #endregion
+
+            #region PostActionManager
+            public PostActionManager PostActionManager
+            {
+                get { return postactionManager; }
+                set { postactionManager = value; }
             }
             #endregion
 

@@ -128,6 +128,20 @@ namespace BuildCopy
 
                 // Copy Files
                 CopyFilesRecursively(SelectedProject.Path, SelectedProject.OutputPath);
+
+                // load the post actions
+                List<PostAction> postActions = gateway.LoadPostActionsForProjectId(this.SelectedProject.Id);
+
+                // If the postActions collection exists and has one or more items
+                if (ListHelper.HasOneOrMoreItems(postActions))
+                {
+                    // Iterate the collection of PostAction objects
+                    foreach (PostAction action in postActions)
+                    {
+                        // Copy the files
+                        File.Copy(action.SourcePath, action.DestinationPath);
+                    }
+                }
             }
         }
         #endregion

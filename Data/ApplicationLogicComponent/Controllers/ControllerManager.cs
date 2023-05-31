@@ -26,6 +26,7 @@ namespace ApplicationLogicComponent.Controllers
         private ErrorHandler errorProcessor;
         private ApplicationController appController;
         private ExcludeFolderController excludefolderController;
+        private PostActionController postactionController;
         private ProjectController projectController;
         #endregion
 
@@ -54,6 +55,7 @@ namespace ApplicationLogicComponent.Controllers
             {
                 // Create Child Controllers
                 this.ExcludeFolderController = new ExcludeFolderController(this.ErrorProcessor, this.AppController);
+                this.PostActionController = new PostActionController(this.ErrorProcessor, this.AppController);
                 this.ProjectController = new ProjectController(this.ErrorProcessor, this.AppController);
             }
             #endregion
@@ -83,6 +85,14 @@ namespace ApplicationLogicComponent.Controllers
             {
                 get { return excludefolderController; }
                 set { excludefolderController = value; }
+            }
+            #endregion
+
+            #region PostActionController
+            public PostActionController PostActionController
+            {
+                get { return postactionController; }
+                set { postactionController = value; }
             }
             #endregion
 

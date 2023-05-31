@@ -111,6 +111,43 @@ namespace DataGateway
                 }
                 #endregion
                 
+            #region DeletePostAction(int id, PostAction tempPostAction = null)
+            /// <summary>
+            /// This method is used to delete PostAction objects.
+            /// </summary>
+            /// <param name="id">Delete the PostAction with this id</param>
+            /// <param name="tempPostAction">Pass in a tempPostAction to perform a custom delete.</param>
+            public bool DeletePostAction(int id, PostAction tempPostAction = null)
+            {
+                // initial value
+                bool deleted = false;
+        
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempPostAction does not exist
+                    if (tempPostAction == null)
+                    {
+                        // create a temp PostAction
+                        tempPostAction = new PostAction();
+                    }
+        
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempPostAction.UpdateIdentity(id);
+                    }
+        
+                    // perform the delete
+                    deleted = this.AppController.ControllerManager.PostActionController.Delete(tempPostAction);
+                }
+        
+                // return value
+                return deleted;
+            }
+            #endregion
+        
             #region DeleteProject(int id, Project tempProject = null)
             /// <summary>
             /// This method is used to delete Project objects.
@@ -228,6 +265,43 @@ namespace DataGateway
 
                 // return value
                 return excludeFolder;
+            }
+            #endregion
+
+            #region FindPostAction(int id, PostAction tempPostAction = null)
+            /// <summary>
+            /// This method is used to find 'PostAction' objects.
+            /// </summary>
+            /// <param name="id">Find the PostAction with this id</param>
+            /// <param name="tempPostAction">Pass in a tempPostAction to perform a custom find.</param>
+            public PostAction FindPostAction(int id, PostAction tempPostAction = null)
+            {
+                // initial value
+                PostAction postAction = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // if the tempPostAction does not exist
+                    if (tempPostAction == null)
+                    {
+                        // create a temp PostAction
+                        tempPostAction = new PostAction();
+                    }
+
+                    // if the id is set
+                    if (id > 0)
+                    {
+                        // set the primary key
+                        tempPostAction.UpdateIdentity(id);
+                    }
+
+                    // perform the find
+                    postAction = this.AppController.ControllerManager.PostActionController.Find(tempPostAction);
+                }
+
+                // return value
+                return postAction;
             }
             #endregion
 
@@ -375,6 +449,53 @@ namespace DataGateway
                 }
                 #endregion
                 
+            #region LoadPostActions(PostAction tempPostAction = null)
+            /// <summary>
+            /// This method loads a collection of 'PostAction' objects.
+            /// </summary>
+            public List<PostAction> LoadPostActions(PostAction tempPostAction = null)
+            {
+                // initial value
+                List<PostAction> postActions = null;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the load
+                    postActions = this.AppController.ControllerManager.PostActionController.FetchAll(tempPostAction);
+                }
+
+                // return value
+                return postActions;
+            }
+            #endregion
+
+                #region LoadPostActionsForProjectId(int projectId)
+                /// <summary>
+                /// This method is used to load 'PostAction' objects for the ProjectId given.
+                /// </summary>
+                public List<PostAction> LoadPostActionsForProjectId(int projectId)
+                {
+                    // initial value
+                    List<PostAction> postActions = null;
+                    
+                    // Create a temp PostAction object
+                    PostAction tempPostAction = new PostAction();
+                    
+                    // Set the value for LoadByProjectId to true
+                    tempPostAction.LoadByProjectId = true;
+                    
+                    // Set the value for ProjectId
+                    tempPostAction.ProjectId = projectId;
+                    
+                    // Perform the load
+                    postActions = LoadPostActions(tempPostAction);
+                    
+                    // return value
+                    return postActions;
+                }
+                #endregion
+                
             #region LoadProjects(Project tempProject = null)
             /// <summary>
             /// This method loads a collection of 'Project' objects.
@@ -411,6 +532,28 @@ namespace DataGateway
                 {
                     // perform the save
                     saved = this.AppController.ControllerManager.ExcludeFolderController.Save(ref excludeFolder);
+                }
+
+                // return value
+                return saved;
+            }
+            #endregion
+
+            #region SavePostAction(ref PostAction postAction)
+            /// <summary>
+            /// This method is used to save 'PostAction' objects.
+            /// </summary>
+            /// <param name="postAction">The PostAction to save.</param>
+            public bool SavePostAction(ref PostAction postAction)
+            {
+                // initial value
+                bool saved = false;
+
+                // if the AppController exists
+                if (this.HasAppController)
+                {
+                    // perform the save
+                    saved = this.AppController.ControllerManager.PostActionController.Save(ref postAction);
                 }
 
                 // return value
@@ -506,4 +649,3 @@ namespace DataGateway
     #endregion
 
 }
-

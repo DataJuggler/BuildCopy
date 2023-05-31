@@ -6,7 +6,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Insert a new ExcludeFolder
 -- =========================================================
 
@@ -67,7 +67,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Update an existing ExcludeFolder
 -- =========================================================
 
@@ -131,7 +131,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Find an existing ExcludeFolder
 -- =========================================================
 
@@ -188,7 +188,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Delete an existing ExcludeFolder
 -- =========================================================
 
@@ -242,7 +242,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Returns all ExcludeFolder objects
 -- =========================================================
 
@@ -291,9 +291,293 @@ set ANSI_NULLS ON
 set QUOTED_IDENTIFIER ON
 Go
 -- =========================================================
+-- Procure Name: PostAction_Insert
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   5/31/2023
+-- Description:    Insert a new PostAction
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('PostAction_Insert'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure PostAction_Insert
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.PostAction_Insert') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure PostAction_Insert >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure PostAction_Insert >>>'
+
+    End
+
+GO
+
+Create PROCEDURE PostAction_Insert
+
+    -- Add the parameters for the stored procedure here
+    @DestinationPath nvarchar(255),
+    @ProjectId int,
+    @SourcePath nvarchar(255)
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Insert Statement
+    Insert Into [PostAction]
+    ([DestinationPath],[ProjectId],[SourcePath])
+
+    -- Begin Values List
+    Values(@DestinationPath, @ProjectId, @SourcePath)
+
+    -- Return ID of new record
+    SELECT SCOPE_IDENTITY()
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: PostAction_Update
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   5/31/2023
+-- Description:    Update an existing PostAction
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('PostAction_Update'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure PostAction_Update
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.PostAction_Update') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure PostAction_Update >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure PostAction_Update >>>'
+
+    End
+
+GO
+
+Create PROCEDURE PostAction_Update
+
+    -- Add the parameters for the stored procedure here
+    @DestinationPath nvarchar(255),
+    @Id int,
+    @ProjectId int,
+    @SourcePath nvarchar(255)
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Update Statement
+    Update [PostAction]
+
+    -- Update Each field
+    Set [DestinationPath] = @DestinationPath,
+    [ProjectId] = @ProjectId,
+    [SourcePath] = @SourcePath
+
+    -- Update Matching Record
+    Where [Id] = @Id
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: PostAction_Find
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   5/31/2023
+-- Description:    Find an existing PostAction
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('PostAction_Find'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure PostAction_Find
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.PostAction_Find') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure PostAction_Find >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure PostAction_Find >>>'
+
+    End
+
+GO
+
+Create PROCEDURE PostAction_Find
+
+    -- Primary Key Paramater
+    @Id int
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [DestinationPath],[Id],[ProjectId],[SourcePath]
+
+    -- From tableName
+    From [PostAction]
+
+    -- Find Matching Record
+    Where [Id] = @Id
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: PostAction_Delete
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   5/31/2023
+-- Description:    Delete an existing PostAction
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('PostAction_Delete'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure PostAction_Delete
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.PostAction_Delete') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure PostAction_Delete >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure PostAction_Delete >>>'
+
+    End
+
+GO
+
+Create PROCEDURE PostAction_Delete
+
+    -- Primary Key Paramater
+    @Id int
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Delete Statement
+    Delete From [PostAction]
+
+    -- Delete Matching Record
+    Where [Id] = @Id
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
+-- Procure Name: PostAction_FetchAll
+-- Author:           Data Juggler - Data Tier.Net Procedure Generator
+-- Create Date:   5/31/2023
+-- Description:    Returns all PostAction objects
+-- =========================================================
+
+-- Check if the procedure already exists
+IF EXISTS (select * from syscomments where id = object_id ('PostAction_FetchAll'))
+
+    -- Procedure Does Exist, Drop First
+    BEGIN
+
+        -- Execute Drop
+        Drop Procedure PostAction_FetchAll
+
+        -- Test if procedure was dropped
+        IF OBJECT_ID('dbo.PostAction_FetchAll') IS NOT NULL
+
+            -- Print Line Drop Failed
+            PRINT '<<< Drop Failed On Procedure PostAction_FetchAll >>>'
+
+        Else
+
+            -- Print Line Procedure Dropped
+            PRINT '<<< Drop Suceeded On Procedure PostAction_FetchAll >>>'
+
+    End
+
+GO
+
+Create PROCEDURE PostAction_FetchAll
+
+AS
+BEGIN
+
+    -- SET NOCOUNT ON added to prevent extra result sets from
+    -- interfering with SELECT statements.
+    SET NOCOUNT ON
+
+    -- Begin Select Statement
+    Select [DestinationPath],[Id],[ProjectId],[SourcePath]
+
+    -- From tableName
+    From [PostAction]
+
+END
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+Go
+-- =========================================================
 -- Procure Name: Project_Insert
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Insert a new Project
 -- =========================================================
 
@@ -353,7 +637,7 @@ Go
 -- =========================================================
 -- Procure Name: Project_Update
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Update an existing Project
 -- =========================================================
 
@@ -415,7 +699,7 @@ Go
 -- =========================================================
 -- Procure Name: Project_Find
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Find an existing Project
 -- =========================================================
 
@@ -472,7 +756,7 @@ Go
 -- =========================================================
 -- Procure Name: Project_Delete
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Delete an existing Project
 -- =========================================================
 
@@ -526,7 +810,7 @@ Go
 -- =========================================================
 -- Procure Name: Project_FetchAll
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Returns all Project objects
 -- =========================================================
 
@@ -580,7 +864,7 @@ Go
 -- =========================================================
 -- Procure Name: ExcludeFolder_FetchAllForProjectId
 -- Author:           Data Juggler - Data Tier.Net Procedure Generator
--- Create Date:   5/10/2023
+-- Create Date:   5/31/2023
 -- Description:    Returns all ExcludeFolder objects for the ProjectId given.
 -- =========================================================
 

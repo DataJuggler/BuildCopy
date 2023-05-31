@@ -30,6 +30,7 @@ namespace ApplicationLogicComponent.DataOperations
         private DataManager dataManager;
         private SystemMethods systemMethods;
         private ExcludeFolderMethods excludefolderMethods;
+        private PostActionMethods postactionMethods;
         private ProjectMethods projectMethods;
         #endregion
 
@@ -58,6 +59,7 @@ namespace ApplicationLogicComponent.DataOperations
                 // Create Child DataOperatonMethods
                 this.SystemMethods = new SystemMethods();
                 this.ExcludeFolderMethods = new ExcludeFolderMethods(this.DataManager);
+                this.PostActionMethods = new PostActionMethods(this.DataManager);
                 this.ProjectMethods = new ProjectMethods(this.DataManager);
             }
             #endregion
@@ -87,6 +89,14 @@ namespace ApplicationLogicComponent.DataOperations
             {
                 get { return excludefolderMethods; }
                 set { excludefolderMethods = value; }
+            }
+            #endregion
+
+            #region PostActionMethods
+            public PostActionMethods PostActionMethods
+            {
+                get { return postactionMethods; }
+                set { postactionMethods = value; }
             }
             #endregion
 
